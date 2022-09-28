@@ -1,42 +1,32 @@
+import * as model from './model';
+import recipeView from './views/recipeVew';
+
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 const recipeContainer = document.querySelector('.recipe');
 
-const timeout = function (s) {
-	return new Promise(function (_, reject) {
-		setTimeout(function () {
-			reject(new Error(`Request took too long! Timeout after ${s} second`));
-		}, s * 1000);
-	});
-};
-
-console.log('test again');
+// console.log('test again');
 
 // https://forkify-api.herokuapp.com/v2
 
 ///////////////////////////////////////
 
-const showRecipe = async function () {
+const controlRecipes = async function () {
 	try {
-		const res = await fetch(
-			'https://forkify-api.herokuapp.com/api/v2/recipes/5ed6604591c37cdc054bc886'
-		);
-		const data = await res.json();
-		if (!res.ok) throw new Error(`${data.message}  ${res.status}`);
-		console.log(data);
-
-		let { recipe } = data.data;
-		recipe = {
-			id: recipe.id,
-			title: recipe.title,
-			publisher: recipe.publisher,
-			sourceUrl: recipe.source_url,
-			imageUrl: recipe.image_url,
-			ingredients: recipe.ingredients,
-			cookingTime: recipe.cookingTime,
-		};
-		console.log(recipe);
+		const id = window.location.hash.slice(1);
+		if (!id) return;
+		recipeView.renderSpinner();
+		await model.loadRecipe(id);
+		//padding data to object in view
+		recipeView.render(model.state.recipe);
+		// rendering recipe
 	} catch (err) {
-		console.log(err);
+		recipeView.renderError();
 	}
 };
 
-showRecipe();
+const init = function () {
+	recipeView.addHandlerRender(controlRecipes);
+};
+
+init();
