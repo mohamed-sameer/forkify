@@ -47,7 +47,6 @@ export const loadSearchResults = async function (query) {
 			};
 		});
 	} catch (err) {
-		console.error(`${err}💥`);
 		throw err;
 	}
 };
@@ -57,4 +56,15 @@ export const getSearchResultsPage = function (page = state.search.page) {
 	const start = (page - 1) * state.search.resultsPerPage;
 	const end = page * state.search.resultsPerPage;
 	return state.search.results.slice(start, end);
+};
+
+// this is responsible about updating servings
+export const updateServings = function (newServings) {
+	// reach into state and update the state and then change the quantity of each ingredient
+	state.recipe.ingredients.forEach((ing) => {
+		ing.quantity = (ing.quantity * newServings) / state.recipe.servings;
+	});
+
+	// update serving in the state
+	state.recipe.servings = newServings;
 };
