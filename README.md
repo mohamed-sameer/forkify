@@ -2,9 +2,7 @@
 
 this project is made with vanilla JavaScript applying OOP principles in code architecture && functional programming following up with jonas tutorial in the complete javascript [course](https://www.udemy.com/course/the-complete-javascript-course)
 
-> ⚠️ this course is part of 'كالبنيان المرصوص' competition and unfortunately i couldn't participate in it, but i took it as a challenge and committing to it.
 
-here is the [roadmap](https://docs.google.com/document/u/0/d/1Y6yScW88oaN5jHgcyo6PrCcGKL8STSD5nDrziFqpR4A/mobilebasic) i'm following
 
 ## What i learned
 
